@@ -4,22 +4,31 @@
   become: true
   pre_tasks:
 
-  - name: 1
-    tags: always 
+  - name: Apache installation
+    tags: always
     package:
         name:
           - "{{ apache_package }}"
     when: ansible_distribution in ["Ubuntu","Debian"]
 
+
 - hosts: localhost
   become: true
   tasks:
 
-  - name: 2
+  - name: PHP installation
     tags: apache, apache2, ubuntu
     package:
         name:
            - "{{ apache_package  }}"
            - "{{ php_package }}"
 
+  - name: Copy default HTML
+    tags: apache,apache2, ubuntu
+    copy:
+      src: defaut_site.html
+      dest: /var/www/html/index_ansible.html
+      owner: root
+      group: root
+      mode: 0644
 
