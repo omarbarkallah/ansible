@@ -11,6 +11,31 @@
           - "{{ apache_package }}"
     when: ansible_distribution in ["Ubuntu","Debian"]
 
+  - name: Start apache 
+    tags: apache, apache2, httpd
+    service:
+      name: apache2
+      state: started
+      enabled: yes
+    when: ansible_distribution == "Ubuntu"
+
+  - name: change e-mail adress for admin
+    tags: apache, apache2, httpd
+    lineinfile:
+       path: /etc/apache2/apache2.conf
+       regexp: '^ServerAdmin'
+       line: ServerAdmin somebody@somewhere.net
+    when: ansible_distribution == "Ubuntu"
+    register: apache2
+
+  - name: restart apache2
+    tags: apache, centos, apache2
+    service:
+       name: apace2
+       state: restarted
+    when: apache2.changed
+ 
+
 
 - hosts: localhost
   become: true
@@ -20,7 +45,6 @@
     tags: apache, apache2, ubuntu
     package:
         name:
-           - "{{ apache_package  }}"
            - "{{ php_package }}"
 
   - name: Copy default HTML
@@ -49,7 +73,7 @@
         owner: root # <-- The owner of the file
         group: root # <-- the group too
 
-# Omar BARKALLAH: DevOps & Cloud consultant @ Fogits-odoo silver partner
+
 
 
 
