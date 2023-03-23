@@ -4,7 +4,8 @@
   become: true
   pre_tasks:
 
-  - name: install apache2 package 
+  - name: 1
+    tags: always 
     package:
         name:
           - "{{ apache_package }}"
@@ -14,9 +15,11 @@
   become: true
   tasks:
 
-  - name: install php package
+  - name: 2
+    tags: apache, apache2, ubuntu
     package:
         name:
+           - "{{ apache_package  }}"
            - "{{ php_package }}"
 
 
