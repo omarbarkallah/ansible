@@ -1,0 +1,12 @@
+  - name: install unzip  # <-- Our first task: install yhe unzip package
+    package:
+       name: unzip
+
+  - name: install terraform # Our second task: install terraform
+    unarchive:
+        src: https://releases.hashicorp.com/terraform/1.4.2/terraform_1.4.2_linux_amd64.zip # <-- Download link
+        dest: /usr/local/bin # <-- Is where we gonna store terraform in the target host
+        remote_src: yes # <-- This is something downloaded from the internet 
+        mode: 0755 # <-- The permissions of the file that is extracted from the zip file
+        owner: root # <-- The owner of the file
+        group: root # <-- the group too

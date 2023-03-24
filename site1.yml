@@ -1,0 +1,17 @@
+---
+- hosts: localhost
+  become: true
+  roles:
+    - base
+
+- hosts: localhost
+  become: true
+  roles:
+    - workstations
+
+- hosts: localhost
+  become: true
+  roles:
+    - web_servers
+
+

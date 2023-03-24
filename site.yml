@@ -11,7 +11,7 @@
           - "{{ apache_package }}"
     when: ansible_distribution in ["Ubuntu","Debian"]
 
-  - name: Start apache 
+  - name: Start apache
     tags: apache, apache2, httpd
     service:
       name: apache2
@@ -34,8 +34,8 @@
        name: apace2
        state: restarted
     when: apache2.changed
- 
 
+#---------------------
 
 - hosts: localhost
   become: true
@@ -72,12 +72,14 @@
         mode: 0755 # <-- The permissions of the file that is extracted from the zip file
         owner: root # <-- The owner of the file
         group: root # <-- the group too
+
+#-------------------------
 # Adding Users
 
 - hosts: localhost
   become: yes
   tasks:
- 
+
   - name: add ssh key for simone
     tags: always
     authorized_key:
